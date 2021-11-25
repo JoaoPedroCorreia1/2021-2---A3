@@ -2,7 +2,7 @@ package frontend.login.jframes;
 
 import backend.client.UsuariosClient;
 import backend.models.Usuario;
-import backend.service.login.ValidadorCadastrar;
+import backend.service.login.ValidadorCadastrarUsuario;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -397,7 +397,7 @@ public class LoginCadastrar extends javax.swing.JFrame {
 
     private void botaoCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoCadastrarMouseClicked
               
-        boolean usuarioValido = ValidadorCadastrar.eValido(
+        boolean usuarioValido = ValidadorCadastrarUsuario.eValido(
                 textFieldNomeCompleto.getText(), 
                 textFieldNomeDeUsuario.getText(),
                 textFieldEmail.getText(),

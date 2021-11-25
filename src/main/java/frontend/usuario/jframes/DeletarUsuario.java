@@ -4,6 +4,13 @@
  */
 package frontend.usuario.jframes;
 
+import backend.client.UsuariosClient;
+import backend.controler.AplicacaoController;
+import backend.models.Usuario;
+import frontend.login.jframes.Login;
+import java.awt.event.WindowEvent;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author joao
@@ -15,6 +22,21 @@ public class DeletarUsuario extends javax.swing.JFrame {
      */
     public DeletarUsuario() {
         initComponents();
+        inicializarComponentes();
+    }
+    
+    private void inicializarComponentes()
+    {
+        
+        // E-mail
+        Usuario usuario 
+                = UsuariosClient
+                        .getById(AplicacaoController
+                                .getIdUsuarioSelecionado()
+                        );
+        
+        textFieldEmail.setText(usuario.getEmail());
+        
     }
 
     /**
@@ -26,23 +48,101 @@ public class DeletarUsuario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        botaoExcluir = new javax.swing.JButton();
+        textFieldEmail = new javax.swing.JTextField();
+        tituloEmail = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
         setSize(new java.awt.Dimension(1295, 697));
+
+        botaoExcluir.setForeground(new java.awt.Color(242, 43, 43));
+        botaoExcluir.setText("Excluir");
+        botaoExcluir.setMaximumSize(new java.awt.Dimension(127, 40));
+        botaoExcluir.setMinimumSize(new java.awt.Dimension(127, 40));
+        botaoExcluir.setPreferredSize(new java.awt.Dimension(127, 40));
+        botaoExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoExcluirMouseClicked(evt);
+            }
+        });
+        botaoExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoExcluirActionPerformed(evt);
+            }
+        });
+
+        textFieldEmail.setEditable(false);
+        textFieldEmail.setText("Não Selecionado");
+        textFieldEmail.setToolTipText("");
+        textFieldEmail.setEnabled(false);
+        textFieldEmail.setPreferredSize(new java.awt.Dimension(453, 40));
+        textFieldEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldEmailActionPerformed(evt);
+            }
+        });
+
+        tituloEmail.setText("Email");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1295, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(423, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tituloEmail)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(textFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(419, 419, 419))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(botaoExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(582, 582, 582)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 697, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(tituloEmail)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(botaoExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(498, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoExcluirActionPerformed
+
+    private void textFieldEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldEmailActionPerformed
+
+    private void botaoExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoExcluirMouseClicked
+        int respostaConfirmar = JOptionPane.showConfirmDialog(
+                null, 
+                "Confirmar Excluir Usuário?", 
+                "Confirmar", 
+                JOptionPane.YES_NO_OPTION);
+        
+            if (respostaConfirmar == JOptionPane.YES_OPTION) 
+            {
+                UsuariosClient.removeById(
+                        AplicacaoController
+                                .getIdUsuarioSelecionado()
+                );
+                
+                setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+            }
+            
+    }//GEN-LAST:event_botaoExcluirMouseClicked
 
     /**
      * @param args the command line arguments
@@ -95,5 +195,8 @@ public class DeletarUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoExcluir;
+    private javax.swing.JTextField textFieldEmail;
+    private javax.swing.JLabel tituloEmail;
     // End of variables declaration//GEN-END:variables
 }

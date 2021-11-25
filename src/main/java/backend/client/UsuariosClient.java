@@ -215,7 +215,7 @@ public class UsuariosClient {
         try ( Connection conn = conexao.obterConexaoUsuarios()) {
             PreparedStatement smt = null;
             smt = conn.prepareStatement(
-                      "Delete FROM tb_usuarios"
+                      "Delete FROM tb_usuarios "
                     + "WHERE id_usuario = ?");
             smt.setInt(1, id_usuario);
             

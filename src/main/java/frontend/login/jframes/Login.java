@@ -1,7 +1,7 @@
 package frontend.login.jframes;
 
 import backend.controler.AplicacaoController;
-import backend.service.login.ValidadorUsuario;
+import backend.service.login.ValidadorLoginUsuario;
 import frontend.gerenciador.jframes.Gerenciador;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -245,7 +245,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoCadastrarMouseClicked
 
     private void botaoEntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoEntrarMouseClicked
-        if(!ValidadorUsuario
+        if(!ValidadorLoginUsuario
                 .eValido(
                         textFieldEmail.getText(), 
                         passwordFieldSenha.getText()

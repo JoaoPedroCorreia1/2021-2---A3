@@ -6,6 +6,8 @@ import frontend.projetos.jframes.ListaProjetos;
 import frontend.projetos.jframes.RemoverProjeto;
 import frontend.relatorios.jframes.RelatoriosProjetos;
 import frontend.relatorios.jframes.RelatoriosRequisitos;
+import frontend.requisitos.jframes.AdicionarRequisito;
+import frontend.requisitos.jframes.EditarRequisito;
 import frontend.requisitos.jframes.QuadroRequisitos;
 import frontend.requisitos.jframes.RemoverRequisito;
 import frontend.usuario.jframes.DeletarUsuario;
@@ -138,9 +140,19 @@ public class Gerenciador extends javax.swing.JFrame {
         menuRequisitos.add(menuItemRequisitosSelecionar);
 
         menuItemRequisitosAdicionar.setText("Adicionar");
+        menuItemRequisitosAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemRequisitosAdicionarActionPerformed(evt);
+            }
+        });
         menuRequisitos.add(menuItemRequisitosAdicionar);
 
         menuItemRequisitosEditar.setText("Editar");
+        menuItemRequisitosEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemRequisitosEditarActionPerformed(evt);
+            }
+        });
         menuRequisitos.add(menuItemRequisitosEditar);
 
         menuItemRequisitosRemover.setText("Remover");
@@ -248,6 +260,16 @@ public class Gerenciador extends javax.swing.JFrame {
         new RemoverRequisito()
                 .setVisible(true);
     }//GEN-LAST:event_menuItemRequisitosRemoverActionPerformed
+
+    private void menuItemRequisitosAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRequisitosAdicionarActionPerformed
+        new AdicionarRequisito()
+                .setVisible(true);
+    }//GEN-LAST:event_menuItemRequisitosAdicionarActionPerformed
+
+    private void menuItemRequisitosEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRequisitosEditarActionPerformed
+        new EditarRequisito()
+                .setVisible(true);
+    }//GEN-LAST:event_menuItemRequisitosEditarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

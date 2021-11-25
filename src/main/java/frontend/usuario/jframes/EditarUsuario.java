@@ -7,6 +7,8 @@ package frontend.usuario.jframes;
 import backend.client.UsuariosClient;
 import backend.controler.AplicacaoController;
 import backend.models.Usuario;
+import backend.service.login.ValidadorCadastrarUsuario;
+import backend.service.usuarios.ValidadorEditarUsuario;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +28,51 @@ public class EditarUsuario extends javax.swing.JFrame {
         inicializarComponentes();
     }
 
+    private void inicializarComponentes () {
+        
+        // mensagens de erro
+        mensagensDeErro = new ArrayList<>();
+                
+        mensagensDeErro.addAll(
+                
+                Arrays.asList(
+                        erroNomeCompleto,
+                        erroNomeDeUsuario,
+                        erroEmail,
+                        erroSenha,
+                        erroNovaSenha,
+                        erroConfirmarSenha,
+                        erroTelefone
+                )
+                
+        );
+        
+        mensagensDeErro.forEach( 
+                erro -> {
+                    erro.setVisible(false);
+                }
+        );
+        
+        // textFields
+        
+        int idUsuario 
+                = AplicacaoController
+                        .getIdUsuarioSelecionado();
+        
+        Usuario usuario 
+                = UsuariosClient
+                        .getById(
+                              idUsuario  
+                        );
+        
+        textFieldNomeCompleto.setText(usuario.getNomeCompleto());
+        textFieldNomeUsuario.setText(usuario.getNomeUsuario());
+        textFieldEmail.setText(usuario.getEmail());
+        textFieldTelefone.setText(usuario.getTelefone());
+        
+    }
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,7 +112,6 @@ public class EditarUsuario extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1295, 697));
 
         layeredPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        layeredPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         layeredPane.setViewportView(null);
 
         panel.setPreferredSize(new java.awt.Dimension(1295, 800));
@@ -144,6 +190,11 @@ public class EditarUsuario extends javax.swing.JFrame {
         botaoSalvar.setMaximumSize(new java.awt.Dimension(127, 40));
         botaoSalvar.setMinimumSize(new java.awt.Dimension(127, 40));
         botaoSalvar.setPreferredSize(new java.awt.Dimension(127, 40));
+        botaoSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoSalvarMouseClicked(evt);
+            }
+        });
         botaoSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoSalvarActionPerformed(evt);
@@ -206,10 +257,9 @@ public class EditarUsuario extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(tituloTelefone)
                                     .addComponent(textFieldTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(erroConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(passwordFieldConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tituloConfirmarSenha))
+                            .addComponent(erroConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passwordFieldConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tituloConfirmarSenha)
                             .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(erroSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
@@ -327,6 +377,43 @@ public class EditarUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordFieldConfirmarSenhaActionPerformed
 
+    private void botaoSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoSalvarMouseClicked
+        boolean usuarioValido 
+                = ValidadorEditarUsuario
+                        .eValido(
+                textFieldNomeCompleto.getText(), 
+                textFieldNomeUsuario.getText(),
+                textFieldEmail.getText(),
+                passwordFieldSenha.getText(),
+                passwordFieldNovaSenha.getText(), 
+                passwordFieldConfirmarSenha.getText(), 
+                textFieldTelefone.getText()
+                        );
+        
+        if(usuarioValido)
+        {
+            
+            Usuario usuario = new Usuario(
+                textFieldNomeCompleto.getText(), 
+                textFieldNomeUsuario.getText(),
+                textFieldEmail.getText(),
+                passwordFieldNovaSenha.getText(), 
+                textFieldTelefone.getText()
+            );
+            
+            usuario.setIdUsuario(
+                    AplicacaoController
+                            .getIdUsuarioSelecionado()
+            );
+            
+            
+            UsuariosClient.updateById(usuario);
+            
+            resetarFields();
+            
+        }
+    }//GEN-LAST:event_botaoSalvarMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -363,49 +450,17 @@ public class EditarUsuario extends javax.swing.JFrame {
         });
     }
 
-    private void inicializarComponentes () {
-        
-        // mensagens de erro
-        mensagensDeErro = new ArrayList<>();
-                
-        mensagensDeErro.addAll(
-                
-                Arrays.asList(
-                        erroNomeCompleto,
-                        erroNomeDeUsuario,
-                        erroEmail,
-                        erroSenha,
-                        erroConfirmarSenha,
-                        erroTelefone
-                )
-                
-        );
-        
-        mensagensDeErro.forEach( 
-                erro -> {
-                    erro.setVisible(false);
-                }
-        );
-        
-        // textFields
-        
-        int idUsuario 
-                = AplicacaoController
-                        .getIdUsuarioSelecionado();
-        
-        Usuario usuario 
-                = UsuariosClient
-                        .getById(
-                              idUsuario  
-                        );
-        
-        textFieldNomeCompleto.setText(usuario.getNomeCompleto());
-        textFieldNomeUsuario.setText(usuario.getNomeUsuario());
-        textFieldEmail.setText(usuario.getEmail());
-        textFieldTelefone.setText(usuario.getTelefone());
-        
+    private void resetarFields()
+    {
+        textFieldNomeCompleto.setText("");
+        textFieldNomeUsuario.setText("");
+        textFieldEmail.setText("");
+        passwordFieldSenha.setText("");
+        passwordFieldNovaSenha.setText("");
+        passwordFieldConfirmarSenha.setText("");
+        textFieldTelefone.setText("");
     }
-
+    
     private List<JLabel> mensagensDeErro;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoSalvar;

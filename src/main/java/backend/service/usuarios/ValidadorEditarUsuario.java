@@ -1,14 +1,16 @@
-package backend.service.login;
+package backend.service.usuarios;
 
+import backend.client.UsuariosClient;
 import javax.swing.JOptionPane;
 
-public class ValidadorCadastrar {
+public class ValidadorEditarUsuario {
     
     public static boolean eValido(
             String nomeCompleto,
             String nomeUsuario,
             String email,
             String senha,
+            String novaSenha,
             String confirmarSenha,
             String telefone
     )
@@ -61,7 +63,29 @@ public class ValidadorCadastrar {
             return false;
         }
         
-        if(senha.length() < 6)
+        if(!senha.equals(
+                UsuariosClient
+                        .getByEmail(email)
+                        .getSenha()
+            )
+        ) {
+            
+            JOptionPane.showMessageDialog(null,
+                    "Senha inválida"
+            );
+            return false;
+            
+        }
+        
+        if(novaSenha.equals(senha))
+        {
+            JOptionPane.showMessageDialog(null, 
+                    "Nova senha igual a senha atual"
+            );
+            return false;
+        }
+        
+        if(novaSenha.length() < 6)
         {
             JOptionPane.showMessageDialog(null,
                     "Senha muito curta (min 6 caracteres)"
@@ -69,7 +93,7 @@ public class ValidadorCadastrar {
             return false;
         }
         
-        if(senha.length() > 30)
+        if(novaSenha.length() > 30)
         {
             JOptionPane.showMessageDialog(null,
                     "Senha muito longa (max 30 caracteres)"
@@ -77,7 +101,7 @@ public class ValidadorCadastrar {
             return false;
         }
         
-        if(senha.equals(confirmarSenha) == false)
+        if(novaSenha.equals(confirmarSenha) == false)
         {
             
             JOptionPane.showMessageDialog(null,

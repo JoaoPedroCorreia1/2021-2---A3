@@ -5,7 +5,7 @@ import backend.controler.AplicacaoController;
 import backend.models.Usuario;
 import javax.swing.JOptionPane;
 
-public class ValidadorUsuario {
+public class ValidadorLoginUsuario {
     
     public static boolean eValido(
             String email,
@@ -18,6 +18,7 @@ public class ValidadorUsuario {
         
         if(usuario == null){
             
+            JOptionPane.showMessageDialog(null, "Email inválido");
             return false;
             
         }
@@ -35,7 +36,7 @@ public class ValidadorUsuario {
             
         }
         
-        JOptionPane.showMessageDialog(null, "Senha incorreta");
+        JOptionPane.showMessageDialog(null, "Senha inválida");
         
         return false;
     }
