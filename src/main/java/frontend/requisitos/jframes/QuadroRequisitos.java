@@ -4,6 +4,12 @@
  */
 package frontend.requisitos.jframes;
 
+import backend.controllers.AplicacaoController;
+import backend.dto.ProjetoDTO;
+import database.dao.ProjetoDAO;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author joao
@@ -16,6 +22,32 @@ public class QuadroRequisitos extends javax.swing.JFrame {
     public QuadroRequisitos() {
         initComponents();
     }
+    
+    public void inicializarComponentes()
+    {
+        
+        // tabela
+        DefaultTableModel tableModel 
+                = (DefaultTableModel) tabelaAFazer.getModel();
+        
+        /*
+        List<RequistisoDTO> projetos
+                = ProjetoDAO
+                        .getByIdUsuario(
+                                AplicacaoController
+                                        .getIdUsuarioSelecionado()
+                        );
+        
+        
+        if(!projetos.isEmpty())
+        {
+            for(ProjetoDTO projeto : projetos)
+            {
+                defaultTableModel.addRow(new Object[]{projeto.getNome()});
+            }
+        }
+        */
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,16 +59,16 @@ public class QuadroRequisitos extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        tabelaAFazer = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        tabelaEmProgresso = new javax.swing.JList<>();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList<>();
+        tabelaConcluido = new javax.swing.JList<>();
         jLabel4 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -50,13 +82,13 @@ public class QuadroRequisitos extends javax.swing.JFrame {
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setPreferredSize(new java.awt.Dimension(196, 282));
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        tabelaAFazer.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jList1.setPreferredSize(new java.awt.Dimension(184, 282));
-        jScrollPane1.setViewportView(jList1);
+        tabelaAFazer.setPreferredSize(new java.awt.Dimension(184, 282));
+        jScrollPane1.setViewportView(tabelaAFazer);
 
         jButton1.setText("<");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -77,26 +109,26 @@ public class QuadroRequisitos extends javax.swing.JFrame {
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane2.setPreferredSize(new java.awt.Dimension(196, 282));
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+        tabelaEmProgresso.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jList2.setPreferredSize(new java.awt.Dimension(184, 282));
-        jScrollPane2.setViewportView(jList2);
+        tabelaEmProgresso.setPreferredSize(new java.awt.Dimension(184, 282));
+        jScrollPane2.setViewportView(tabelaEmProgresso);
 
         jLabel3.setText("Em Progresso");
 
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane3.setPreferredSize(new java.awt.Dimension(196, 282));
 
-        jList3.setModel(new javax.swing.AbstractListModel<String>() {
+        tabelaConcluido.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jList3.setPreferredSize(new java.awt.Dimension(184, 282));
-        jScrollPane3.setViewportView(jList3);
+        tabelaConcluido.setPreferredSize(new java.awt.Dimension(184, 282));
+        jScrollPane3.setViewportView(tabelaConcluido);
 
         jLabel4.setText("Concluido");
 
@@ -228,44 +260,6 @@ public class QuadroRequisitos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(QuadroRequisitos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(QuadroRequisitos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(QuadroRequisitos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(QuadroRequisitos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new QuadroRequisitos().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -276,12 +270,12 @@ public class QuadroRequisitos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
-    private javax.swing.JList<String> jList3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JList<String> tabelaAFazer;
+    private javax.swing.JList<String> tabelaConcluido;
+    private javax.swing.JList<String> tabelaEmProgresso;
     // End of variables declaration//GEN-END:variables
 }

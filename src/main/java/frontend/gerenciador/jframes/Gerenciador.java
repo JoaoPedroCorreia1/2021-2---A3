@@ -1,8 +1,10 @@
 package frontend.gerenciador.jframes;
 
 import frontend.projetos.jframes.AdicionarProjeto;
+import frontend.projetos.jframes.EditarParticipantes;
 import frontend.projetos.jframes.EditarProjeto;
 import frontend.projetos.jframes.ListaProjetos;
+import frontend.projetos.jframes.ParticipantesProjetos;
 import frontend.projetos.jframes.RemoverProjeto;
 import frontend.relatorios.jframes.RelatoriosProjetos;
 import frontend.relatorios.jframes.RelatoriosRequisitos;
@@ -39,11 +41,15 @@ public class Gerenciador extends javax.swing.JFrame {
         menuItemContaDeletar = new javax.swing.JMenuItem();
         menuProjetos = new javax.swing.JMenu();
         menuItemProjetosSelecionar = new javax.swing.JMenuItem();
+        menuItemProjetosParticipantes = new javax.swing.JMenuItem();
+        menuItemProjetosAdicionarParticipantes = new javax.swing.JMenuItem();
         menuItemProjetosEditar = new javax.swing.JMenuItem();
         menuItemProjetosAdicionar = new javax.swing.JMenuItem();
         menuItemProjetosRemover = new javax.swing.JMenuItem();
         menuRequisitos = new javax.swing.JMenu();
         menuItemRequisitosSelecionar = new javax.swing.JMenuItem();
+        menuItemRequisitosParticipantes = new javax.swing.JMenuItem();
+        menuItemRequisitosAdicionarParticipantes = new javax.swing.JMenuItem();
         menuItemRequisitosAdicionar = new javax.swing.JMenuItem();
         menuItemRequisitosEditar = new javax.swing.JMenuItem();
         menuItemRequisitosRemover = new javax.swing.JMenuItem();
@@ -102,6 +108,22 @@ public class Gerenciador extends javax.swing.JFrame {
         });
         menuProjetos.add(menuItemProjetosSelecionar);
 
+        menuItemProjetosParticipantes.setText("Participantes");
+        menuItemProjetosParticipantes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemProjetosParticipantesActionPerformed(evt);
+            }
+        });
+        menuProjetos.add(menuItemProjetosParticipantes);
+
+        menuItemProjetosAdicionarParticipantes.setText("Editar Participantes");
+        menuItemProjetosAdicionarParticipantes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemProjetosAdicionarParticipantesActionPerformed(evt);
+            }
+        });
+        menuProjetos.add(menuItemProjetosAdicionarParticipantes);
+
         menuItemProjetosEditar.setText("Editar");
         menuItemProjetosEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,6 +160,12 @@ public class Gerenciador extends javax.swing.JFrame {
             }
         });
         menuRequisitos.add(menuItemRequisitosSelecionar);
+
+        menuItemRequisitosParticipantes.setText("Participantes");
+        menuRequisitos.add(menuItemRequisitosParticipantes);
+
+        menuItemRequisitosAdicionarParticipantes.setText("Adicionar Participante");
+        menuRequisitos.add(menuItemRequisitosAdicionarParticipantes);
 
         menuItemRequisitosAdicionar.setText("Adicionar");
         menuItemRequisitosAdicionar.addActionListener(new java.awt.event.ActionListener() {
@@ -271,37 +299,15 @@ public class Gerenciador extends javax.swing.JFrame {
                 .setVisible(true);
     }//GEN-LAST:event_menuItemRequisitosEditarActionPerformed
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Gerenciador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Gerenciador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Gerenciador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Gerenciador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void menuItemProjetosParticipantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemProjetosParticipantesActionPerformed
+       new ParticipantesProjetos()
+                .setVisible(true);
+    }//GEN-LAST:event_menuItemProjetosParticipantesActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Gerenciador().setVisible(true);
-            }
-        });
-    }
+    private void menuItemProjetosAdicionarParticipantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemProjetosAdicionarParticipantesActionPerformed
+        new EditarParticipantes()
+                .setVisible(true);
+    }//GEN-LAST:event_menuItemProjetosAdicionarParticipantesActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar menuBar;
@@ -310,13 +316,17 @@ public class Gerenciador extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemContaEditar;
     private javax.swing.JMenuItem menuItemPerfil;
     private javax.swing.JMenuItem menuItemProjetosAdicionar;
+    private javax.swing.JMenuItem menuItemProjetosAdicionarParticipantes;
     private javax.swing.JMenuItem menuItemProjetosEditar;
+    private javax.swing.JMenuItem menuItemProjetosParticipantes;
     private javax.swing.JMenuItem menuItemProjetosRemover;
     private javax.swing.JMenuItem menuItemProjetosSelecionar;
     private javax.swing.JMenuItem menuItemRelatoriosProjetos;
     private javax.swing.JMenuItem menuItemRelatoriosRequisitos;
     private javax.swing.JMenuItem menuItemRequisitosAdicionar;
+    private javax.swing.JMenuItem menuItemRequisitosAdicionarParticipantes;
     private javax.swing.JMenuItem menuItemRequisitosEditar;
+    private javax.swing.JMenuItem menuItemRequisitosParticipantes;
     private javax.swing.JMenuItem menuItemRequisitosRemover;
     private javax.swing.JMenuItem menuItemRequisitosSelecionar;
     private javax.swing.JMenu menuProjetos;

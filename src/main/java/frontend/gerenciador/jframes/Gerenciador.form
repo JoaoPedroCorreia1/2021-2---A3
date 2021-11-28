@@ -63,6 +63,22 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemProjetosSelecionarActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemProjetosParticipantes">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Participantes"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemProjetosParticipantesActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemProjetosAdicionarParticipantes">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Editar Participantes"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemProjetosAdicionarParticipantesActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemProjetosEditar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Editar"/>
@@ -104,6 +120,16 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemRequisitosSelecionarActionPerformed"/>
               </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemRequisitosParticipantes">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Participantes"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemRequisitosAdicionarParticipantes">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Adicionar Participante"/>
+              </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemRequisitosAdicionar">
               <Properties>

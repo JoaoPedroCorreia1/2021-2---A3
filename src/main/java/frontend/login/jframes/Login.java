@@ -1,7 +1,6 @@
 package frontend.login.jframes;
 
-import backend.controler.AplicacaoController;
-import backend.service.login.ValidadorLoginUsuario;
+import backend.utils.validacao.login.ValidadorLoginUsuario;
 import frontend.gerenciador.jframes.Gerenciador;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;

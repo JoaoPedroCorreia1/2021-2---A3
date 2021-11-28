@@ -4,11 +4,11 @@
  */
 package frontend.usuario.jframes;
 
-import backend.client.UsuariosClient;
-import backend.controler.AplicacaoController;
-import backend.models.Usuario;
-import backend.service.login.ValidadorCadastrarUsuario;
-import backend.service.usuarios.ValidadorEditarUsuario;
+import database.dao.UsuarioDAO;
+import backend.controllers.AplicacaoController;
+import backend.dto.UsuarioDTO;
+import backend.utils.validacao.login.ValidadorCadastrarUsuario;
+import backend.utils.validacao.usuarios.ValidadorEditarUsuario;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +20,8 @@ import javax.swing.JLabel;
  */
 public class EditarUsuario extends javax.swing.JFrame {
 
+    private boolean trocarSenha = false;
+    
     /**
      * Creates new form Editar
      */
@@ -59,8 +61,8 @@ public class EditarUsuario extends javax.swing.JFrame {
                 = AplicacaoController
                         .getIdUsuarioSelecionado();
         
-        Usuario usuario 
-                = UsuariosClient
+        UsuarioDTO usuario 
+                = UsuarioDAO
                         .getById(
                               idUsuario  
                         );
@@ -106,6 +108,7 @@ public class EditarUsuario extends javax.swing.JFrame {
         tituloConfirmarSenha = new javax.swing.JLabel();
         erroConfirmarSenha = new javax.swing.JLabel();
         erroNovaSenha = new javax.swing.JLabel();
+        botaoTrocarSenha = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -201,6 +204,7 @@ public class EditarUsuario extends javax.swing.JFrame {
             }
         });
 
+        passwordFieldNovaSenha.setEnabled(false);
         passwordFieldNovaSenha.setPreferredSize(new java.awt.Dimension(453, 35));
         passwordFieldNovaSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,6 +212,7 @@ public class EditarUsuario extends javax.swing.JFrame {
             }
         });
 
+        passwordFieldSenha.setEnabled(false);
         passwordFieldSenha.setPreferredSize(new java.awt.Dimension(453, 35));
         passwordFieldSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,6 +220,7 @@ public class EditarUsuario extends javax.swing.JFrame {
             }
         });
 
+        passwordFieldConfirmarSenha.setEnabled(false);
         passwordFieldConfirmarSenha.setPreferredSize(new java.awt.Dimension(453, 35));
         passwordFieldConfirmarSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -233,6 +239,21 @@ public class EditarUsuario extends javax.swing.JFrame {
         erroNovaSenha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         erroNovaSenha.setText("erro!");
         erroNovaSenha.setPreferredSize(new java.awt.Dimension(453, 18));
+
+        botaoTrocarSenha.setText("Trocar Senha");
+        botaoTrocarSenha.setMaximumSize(new java.awt.Dimension(127, 40));
+        botaoTrocarSenha.setMinimumSize(new java.awt.Dimension(127, 40));
+        botaoTrocarSenha.setPreferredSize(new java.awt.Dimension(127, 40));
+        botaoTrocarSenha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoTrocarSenhaMouseClicked(evt);
+            }
+        });
+        botaoTrocarSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoTrocarSenhaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
@@ -275,8 +296,10 @@ public class EditarUsuario extends javax.swing.JFrame {
                             .addComponent(tituloNovaSenha)
                             .addComponent(erroNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelLayout.createSequentialGroup()
-                        .addGap(579, 579, 579)
-                        .addComponent(botaoSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(494, 494, 494)
+                        .addComponent(botaoSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(botaoTrocarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(477, 477, 477))
         );
         panelLayout.setVerticalGroup(
@@ -325,7 +348,9 @@ public class EditarUsuario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(erroTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
-                .addComponent(botaoSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoTrocarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -387,17 +412,31 @@ public class EditarUsuario extends javax.swing.JFrame {
                 passwordFieldSenha.getText(),
                 passwordFieldNovaSenha.getText(), 
                 passwordFieldConfirmarSenha.getText(), 
-                textFieldTelefone.getText()
+                textFieldTelefone.getText(),
+                trocarSenha
                         );
         
         if(usuarioValido)
         {
             
-            Usuario usuario = new Usuario(
+            
+            String senhaUsuario;
+            if(!trocarSenha)
+            {
+                senhaUsuario
+                        = UsuarioDAO.getById(
+                                AplicacaoController
+                                        .getIdUsuarioSelecionado()
+                        ).getSenha();  
+            }
+            else {
+                senhaUsuario = passwordFieldNovaSenha.getText();
+            }
+            UsuarioDTO usuario = new UsuarioDTO(
                 textFieldNomeCompleto.getText(), 
                 textFieldNomeUsuario.getText(),
                 textFieldEmail.getText(),
-                passwordFieldNovaSenha.getText(), 
+                senhaUsuario, 
                 textFieldTelefone.getText()
             );
             
@@ -407,63 +446,44 @@ public class EditarUsuario extends javax.swing.JFrame {
             );
             
             
-            UsuariosClient.updateById(usuario);
+            UsuarioDAO.updateById(usuario);
             
             resetarFields();
             
         }
     }//GEN-LAST:event_botaoSalvarMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void botaoTrocarSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoTrocarSenhaMouseClicked
+        if(trocarSenha == false)
+        {
+            passwordFieldSenha.setEnabled(true);
+            passwordFieldNovaSenha.setEnabled(true);
+            passwordFieldConfirmarSenha.setEnabled(true);
+            trocarSenha = true;
         }
-        //</editor-fold>
-        //</editor-fold>
+    }//GEN-LAST:event_botaoTrocarSenhaMouseClicked
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EditarUsuario().setVisible(true);
-            }
-        });
-    }
+    private void botaoTrocarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoTrocarSenhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoTrocarSenhaActionPerformed
 
     private void resetarFields()
     {
-        textFieldNomeCompleto.setText("");
-        textFieldNomeUsuario.setText("");
-        textFieldEmail.setText("");
+        // senhas
         passwordFieldSenha.setText("");
         passwordFieldNovaSenha.setText("");
         passwordFieldConfirmarSenha.setText("");
-        textFieldTelefone.setText("");
+        
+        passwordFieldSenha.setEnabled(false);
+        passwordFieldNovaSenha.setEnabled(false);
+        passwordFieldConfirmarSenha.setEnabled(false);
+        trocarSenha = false;
     }
     
     private List<JLabel> mensagensDeErro;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoSalvar;
+    private javax.swing.JButton botaoTrocarSenha;
     private javax.swing.JLabel erroConfirmarSenha;
     private javax.swing.JLabel erroEmail;
     private javax.swing.JLabel erroNomeCompleto;

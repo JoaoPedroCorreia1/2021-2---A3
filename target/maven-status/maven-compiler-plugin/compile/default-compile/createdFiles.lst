@@ -54,7 +54,6 @@ frontend/gerenciador/jframes/Gerenciador.class
 frontend/requisitos/jframes/AdicionarRequisito$7.class
 frontend/login/jframes/Login$5.class
 frontend/login/jframes/LoginCadastrar$1.class
-.netbeans_automatic_build
 frontend/requisitos/jframes/RemoverRequisito$3.class
 frontend/projetos/jframes/RemoverProjeto.class
 frontend/requisitos/jframes/RemoverRequisito$2.class
@@ -68,7 +67,6 @@ frontend/login/jframes/LoginCadastrar.class
 frontend/requisitos/jframes/QuadroRequisitos$4.class
 frontend/login/jframes/LoginCadastrar$2.class
 frontend/relatorios/jframes/RelatoriosProjetos$1.class
-frontend/usuario/jframes/PerfilUsuario$6.class
 frontend/resources/jframes/Teste$6.class
 frontend/login/jframes/Login$6.class
 frontend/resources/jframes/Teste2LayeredPanel$1.class
@@ -78,7 +76,6 @@ frontend/resources/jframes/Conteudo$4.class
 frontend/projetos/jframes/ListaProjetos$3.class
 frontend/requisitos/jframes/AdicionarRequisito$5.class
 frontend/gerenciador/jframes/Gerenciador$2.class
-frontend/login/jframes/LoginCadastrar$10.class
 frontend/login/jframes/Login$3.class
 frontend/usuario/jframes/DeletarUsuario.class
 frontend/projetos/jframes/EditarProjeto$1.class

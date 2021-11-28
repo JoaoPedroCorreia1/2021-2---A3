@@ -1,8 +1,8 @@
 package frontend.login.jframes;
 
-import backend.client.UsuariosClient;
-import backend.models.Usuario;
-import backend.service.login.ValidadorCadastrarUsuario;
+import database.dao.UsuarioDAO;
+import backend.dto.UsuarioDTO;
+import backend.utils.validacao.login.ValidadorCadastrarUsuario;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,42 +11,6 @@ import javax.swing.JLabel;
 
 public class LoginCadastrar extends javax.swing.JFrame {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginCadastrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginCadastrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginCadastrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginCadastrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginCadastrar().setVisible(true);
-            }
-        });
-    }
-    
     public LoginCadastrar() {
         initComponents();
         inicializarComponentes();
@@ -409,7 +373,7 @@ public class LoginCadastrar extends javax.swing.JFrame {
         if(usuarioValido)
         {
             
-            Usuario usuario = new Usuario(
+            UsuarioDTO usuario = new UsuarioDTO(
                 textFieldNomeCompleto.getText(), 
                 textFieldNomeDeUsuario.getText(),
                 textFieldEmail.getText(),
@@ -418,7 +382,7 @@ public class LoginCadastrar extends javax.swing.JFrame {
             );
             
             
-            UsuariosClient.inserir(usuario);
+            UsuarioDAO.insert(usuario);
             
             resetarFields();
             

@@ -4,10 +4,16 @@
  */
 package frontend.projetos.jframes;
 
+import backend.controllers.AplicacaoController;
+import backend.dto.ProjetoDTO;
+import backend.utils.validacao.projetos.ValidadorAdicionarProjeto;
+import database.dao.ProjetoDAO;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class EditarProjeto extends javax.swing.JFrame {
 
@@ -16,6 +22,44 @@ public class EditarProjeto extends javax.swing.JFrame {
      */
     public EditarProjeto() {
         initComponents();
+        inicializarComponentes();
+    }
+    
+    public void inicializarComponentes()
+    {
+        // mensagens de erro
+        mensagensDeErro = new ArrayList<>();
+                
+        mensagensDeErro.addAll(
+                
+                Arrays.asList(
+                        erroNome,
+                        erroDescricao
+                )
+                
+        );
+        
+        mensagensDeErro.forEach( 
+                erro -> {
+                    erro.setVisible(false);
+                }
+        );
+        
+        // fields
+        ProjetoDTO projeto 
+                = ProjetoDAO
+                        .getByIdProjeto(
+                                AplicacaoController.getIdProjetoSelecionado()
+                        );
+        
+        if(projeto != null)
+        {
+        textFieldNome.setText(projeto.getNome());
+        textAreaDescricao.setText(projeto.getDescricao());
+        } 
+        else {
+            JOptionPane.showMessageDialog(null, "Não há projeto selecionado");
+        }
     }
 
     /**
@@ -32,7 +76,7 @@ public class EditarProjeto extends javax.swing.JFrame {
         inputNome = new javax.swing.JPanel();
         erroNome = new javax.swing.JLabel();
         tituloNome = new javax.swing.JLabel();
-        textFieldDescricao = new javax.swing.JTextField();
+        textFieldNome = new javax.swing.JTextField();
         inputDescricao = new javax.swing.JPanel();
         erroDescricao = new javax.swing.JLabel();
         tituloDescricao = new javax.swing.JLabel();
@@ -58,11 +102,11 @@ public class EditarProjeto extends javax.swing.JFrame {
 
         tituloNome.setText("Nome");
 
-        textFieldDescricao.setToolTipText("");
-        textFieldDescricao.setPreferredSize(new java.awt.Dimension(453, 40));
-        textFieldDescricao.addActionListener(new java.awt.event.ActionListener() {
+        textFieldNome.setToolTipText("");
+        textFieldNome.setPreferredSize(new java.awt.Dimension(453, 40));
+        textFieldNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldDescricaoActionPerformed(evt);
+                textFieldNomeActionPerformed(evt);
             }
         });
 
@@ -75,7 +119,7 @@ public class EditarProjeto extends javax.swing.JFrame {
                 .addGroup(inputNomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(inputNomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(erroNome, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(textFieldDescricao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textFieldNome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(tituloNome))
                 .addContainerGap())
         );
@@ -85,7 +129,7 @@ public class EditarProjeto extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(tituloNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(erroNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
@@ -182,73 +226,35 @@ public class EditarProjeto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textFieldDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldDescricaoActionPerformed
+    private void textFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldDescricaoActionPerformed
+    }//GEN-LAST:event_textFieldNomeActionPerformed
 
     private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botaoSalvarActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditarProjeto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditarProjeto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditarProjeto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditarProjeto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        if(AplicacaoController.getIdProjetoSelecionado() == -1)
+        {
+            JOptionPane.showMessageDialog(null, "Não há projeto selecionado");
+            return;
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EditarProjeto().setVisible(true);
-            }
-        });
-    }
-    
-    private void inicializarComponentes () {
         
-        // mensagens de erro
-        mensagensDeErro = new ArrayList<>();
-                
-        mensagensDeErro.addAll(
-                
-                Arrays.asList(
-                        erroNome,
-                        erroDescricao
+        if(ValidadorAdicionarProjeto
+                .eValido(
+                        textFieldNome.getText(), 
+                        textAreaDescricao.getText()
                 )
-                
-        );
-        
-        mensagensDeErro.forEach( 
-                erro -> {
-                    erro.setVisible(false);
-                }
-        );
-        
-    }
+        ) {
+            ProjetoDTO projeto = new ProjetoDTO(
+                    AplicacaoController.getIdUsuarioSelecionado(),
+                    textFieldNome.getText(),
+                    textAreaDescricao.getText()
+            );
+            
+            ProjetoDAO.updateById(
+                    projeto, 
+                    AplicacaoController
+                            .getIdProjetoSelecionado());
+        }
+    }//GEN-LAST:event_botaoSalvarActionPerformed
 
     private List<JLabel> mensagensDeErro;
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -261,7 +267,7 @@ public class EditarProjeto extends javax.swing.JFrame {
     private javax.swing.JPanel panel;
     private javax.swing.JScrollPane scrollPaneDescricao;
     private javax.swing.JTextArea textAreaDescricao;
-    private javax.swing.JTextField textFieldDescricao;
+    private javax.swing.JTextField textFieldNome;
     private javax.swing.JLabel tituloDescricao;
     private javax.swing.JLabel tituloNome;
     // End of variables declaration//GEN-END:variables

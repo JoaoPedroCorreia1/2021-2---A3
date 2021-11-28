@@ -4,6 +4,11 @@
  */
 package frontend.projetos.jframes;
 
+import backend.controllers.AplicacaoController;
+import backend.dto.ProjetoDTO;
+import database.dao.ProjetoDAO;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author joao
@@ -15,7 +20,32 @@ public class RemoverProjeto extends javax.swing.JFrame {
      */
     public RemoverProjeto() {
         initComponents();
-        iniciarComponentes();
+        inicializarComponentes();
+    }
+
+    
+    public void inicializarComponentes()
+    {
+        // erros
+        erroRemover.setVisible(false);
+        
+        // fields
+        ProjetoDTO projeto
+                = ProjetoDAO
+                        .getByIdProjeto(
+                                AplicacaoController
+                                        .getIdProjetoSelecionado()
+                        );
+        
+        if(projeto != null)
+        {
+            textFieldNome.setText(projeto.getNome());
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Não há projeto");
+        }
+        
     }
 
     /**
@@ -29,7 +59,7 @@ public class RemoverProjeto extends javax.swing.JFrame {
 
         inputNome = new javax.swing.JPanel();
         tituloNome = new javax.swing.JLabel();
-        textFieldDescricao = new javax.swing.JTextField();
+        textFieldNome = new javax.swing.JTextField();
         botaoRemover = new javax.swing.JButton();
         erroRemover = new javax.swing.JLabel();
 
@@ -39,14 +69,14 @@ public class RemoverProjeto extends javax.swing.JFrame {
 
         tituloNome.setText("Nome");
 
-        textFieldDescricao.setEditable(false);
-        textFieldDescricao.setText("Não Selecionado");
-        textFieldDescricao.setToolTipText("");
-        textFieldDescricao.setEnabled(false);
-        textFieldDescricao.setPreferredSize(new java.awt.Dimension(453, 40));
-        textFieldDescricao.addActionListener(new java.awt.event.ActionListener() {
+        textFieldNome.setEditable(false);
+        textFieldNome.setText("Não Selecionado");
+        textFieldNome.setToolTipText("");
+        textFieldNome.setEnabled(false);
+        textFieldNome.setPreferredSize(new java.awt.Dimension(453, 40));
+        textFieldNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldDescricaoActionPerformed(evt);
+                textFieldNomeActionPerformed(evt);
             }
         });
 
@@ -58,7 +88,7 @@ public class RemoverProjeto extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addGroup(inputNomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tituloNome)
-                    .addComponent(textFieldDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textFieldNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0))
         );
         inputNomeLayout.setVerticalGroup(
@@ -67,7 +97,7 @@ public class RemoverProjeto extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(tituloNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -120,64 +150,39 @@ public class RemoverProjeto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textFieldDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldDescricaoActionPerformed
+    private void textFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldDescricaoActionPerformed
+    }//GEN-LAST:event_textFieldNomeActionPerformed
 
     private void botaoRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botaoRemoverActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RemoverProjeto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RemoverProjeto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RemoverProjeto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RemoverProjeto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        
+        ProjetoDTO projeto
+                = ProjetoDAO
+                        .getByIdProjeto(
+                                AplicacaoController
+                                        .getIdProjetoSelecionado()
+                        );
+        
+        if(projeto != null)
+        {
+            ProjetoDAO
+                    .removeById(
+                            AplicacaoController
+                                    .getIdProjetoSelecionado()
+                    );
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RemoverProjeto().setVisible(true);
-            }
-        });
-    }
-    
-    public void iniciarComponentes()
-    {
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Não há projeto para excluir");
+        }
         
-        erroRemover.setVisible(false);
-        
-    }
+    }//GEN-LAST:event_botaoRemoverActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoRemover;
     private javax.swing.JLabel erroRemover;
     private javax.swing.JPanel inputNome;
-    private javax.swing.JTextField textFieldDescricao;
+    private javax.swing.JTextField textFieldNome;
     private javax.swing.JLabel tituloNome;
     // End of variables declaration//GEN-END:variables
 }

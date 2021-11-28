@@ -4,19 +4,50 @@
  */
 package frontend.projetos.jframes;
 
+import backend.controllers.AplicacaoController;
+import backend.dto.ProjetoDTO;
+import database.dao.ProjetoDAO;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author joao
  */
 public class ListaProjetos extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Lista
-     */
+    private DefaultTableModel defaultTableModel;
+    private List<ProjetoDTO> projetos;
+    
     public ListaProjetos() {
         initComponents();
+        inicializarComponentes();
     }
 
+    
+    public void inicializarComponentes()
+    {
+        // tabela
+        defaultTableModel = (DefaultTableModel) tabelaProjetos.getModel();
+        
+        projetos
+                = ProjetoDAO
+                        .getByIdUsuario(
+                                AplicacaoController
+                                        .getIdUsuarioSelecionado()
+                        );
+        
+        if(!projetos.isEmpty())
+        {
+            for(ProjetoDTO projeto : projetos)
+            {
+                defaultTableModel.addRow(new Object[]{projeto.getNome()});
+            }
+        }
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,14 +72,7 @@ public class ListaProjetos extends javax.swing.JFrame {
 
         tabelaProjetos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
+
             },
             new String [] {
                 "Nome"
@@ -61,6 +85,11 @@ public class ListaProjetos extends javax.swing.JFrame {
 
         botaoPesquisar.setText("Selecionar");
         botaoPesquisar.setPreferredSize(new java.awt.Dimension(137, 40));
+        botaoPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoPesquisarMouseClicked(evt);
+            }
+        });
         botaoPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoPesquisarActionPerformed(evt);
@@ -120,41 +149,32 @@ public class ListaProjetos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_botaoPesquisar1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListaProjetos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListaProjetos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListaProjetos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListaProjetos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void botaoPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoPesquisarMouseClicked
+        int i = tabelaProjetos.getSelectedRow();
+        
+        if(projetos.isEmpty())
+        {
+            JOptionPane.showMessageDialog(null, "Não há projeto");
+            return;
         }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ListaProjetos().setVisible(true);
-            }
-        });
-    }
+        
+        if(projetos.get(i) != null)
+        {
+            
+            int idProjeto 
+                    = projetos
+                            .get(i)
+                            .getIdProjeto();
+            
+            AplicacaoController
+                    .setIdProjetoSelecionado(idProjeto);
+            
+            JOptionPane.showMessageDialog(null, "Selecionado");
+        } else {
+            JOptionPane.showMessageDialog(null, "Não há projeto");
+        }
+        
+    }//GEN-LAST:event_botaoPesquisarMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoPesquisar;
