@@ -1,6 +1,7 @@
 package database.dao;
 
 import backend.dto.ProjetoDTO;
+import backend.dto.UsuarioDTO;
 import database.connection.ConnectionFactoryMysql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -301,10 +302,20 @@ public class ProjetoDAO {
             smt.setInt(1, idUsuario);
             smt.setInt(2, idProjeto);
             
+            List<UsuarioDTO> participantesRestantes 
+                    = UsuarioDAO.getByIdProjeto(idProjeto);
+            
+            
+            // se estiver vazio, remover projeto
+            if(participantesRestantes.isEmpty())
+            {
+                    removeById(idProjeto);
+            }
+            
             smt.executeUpdate();
             smt.close();
             
-            JOptionPane.showMessageDialog(null, "Participante adicionado com sucesso");
+            JOptionPane.showMessageDialog(null, "Participante removido com sucesso");
 
         }
         

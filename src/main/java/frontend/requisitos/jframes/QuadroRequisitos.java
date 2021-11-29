@@ -83,11 +83,12 @@ public class QuadroRequisitos extends javax.swing.JFrame {
         jScrollPane1.setPreferredSize(new java.awt.Dimension(196, 282));
 
         tabelaAFazer.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "asda", "sds", "dasd", "sa", "da", "d", "dasd", "a", "sdsada", "sda", "asd" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        tabelaAFazer.setPreferredSize(new java.awt.Dimension(184, 282));
+        tabelaAFazer.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tabelaAFazer.setPreferredSize(null);
         jScrollPane1.setViewportView(tabelaAFazer);
 
         jButton1.setText("<");
@@ -110,11 +111,12 @@ public class QuadroRequisitos extends javax.swing.JFrame {
         jScrollPane2.setPreferredSize(new java.awt.Dimension(196, 282));
 
         tabelaEmProgresso.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "asda", "sds", "dasd", "sa", "da", "d", "dasd", "a", "sdsada", "sda", "asd" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        tabelaEmProgresso.setPreferredSize(new java.awt.Dimension(184, 282));
+        tabelaEmProgresso.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tabelaEmProgresso.setPreferredSize(null);
         jScrollPane2.setViewportView(tabelaEmProgresso);
 
         jLabel3.setText("Em Progresso");
@@ -123,14 +125,14 @@ public class QuadroRequisitos extends javax.swing.JFrame {
         jScrollPane3.setPreferredSize(new java.awt.Dimension(196, 282));
 
         tabelaConcluido.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "asda", "sds", "dasd", "sa", "da", "d", "dasd", "a", "sdsada", "sda", "asd", "asd", "asd", "as", "dsad", " " };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        tabelaConcluido.setPreferredSize(new java.awt.Dimension(184, 282));
+        tabelaConcluido.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(tabelaConcluido);
 
-        jLabel4.setText("Concluido");
+        jLabel4.setText("Concluído");
 
         jButton3.setText(">");
         jButton3.addActionListener(new java.awt.event.ActionListener() {

@@ -1,8 +1,13 @@
 package database.dao;
 
+import backend.dto.ProjetoDTO;
 import database.connection.ConnectionFactoryMysql;
 import backend.dto.UsuarioDTO;
 ;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -219,6 +224,8 @@ public class UsuarioDAO {
         
         ConnectionFactoryMysql conexao = new ConnectionFactoryMysql();
 
+        UsuarioDTO usuario = getById(id_usuario);
+        
         try ( Connection conn = conexao.obterConexaoDatabase()) {
             PreparedStatement smt = null;
             smt = conn.prepareStatement(
@@ -228,6 +235,20 @@ public class UsuarioDAO {
             
             smt.executeUpdate();
             smt.close();
+            
+            
+            List<ProjetoDTO> projetos 
+                    = ProjetoDAO.getByIdUsuario(id_usuario);
+            
+            for(ProjetoDTO projeto : projetos)
+            {
+                
+                ProjetoDAO.removeParticipanteById(
+                        id_usuario, 
+                        projeto.getIdProjeto()
+                );
+                
+            }
             
             JOptionPane.showMessageDialog(null, "Usuario deletado");
 
